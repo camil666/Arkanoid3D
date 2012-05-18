@@ -24,21 +24,36 @@ void Platform::display(void)
 
 void Platform::move(float rate, Border *border)
 {
-	float boundary = (border->getSize()-size)/2.0;
+	float boundaryX = (border->getWidth()-size)/2.0;
+	float boundaryY = (border->getHeight()-size)/2.0;
 
-	if ((posY <= boundary) && (posY >= -boundary))
-		posY += velY*rate;
-	else if (posY < -boundary)
-		posY = -boundary;
-	else if (posY > boundary)
-		posY = boundary;
+	if ((posY <= boundaryY) && (posY >= -boundaryY))
+		if((velY > 0) && (posY == boundaryY))
+		{
+		}
+		else if((velY < 0) && (posY == -boundaryY))
+		{
+		} 
+		else
+			posY += velY*rate;
+	else if (posY < -boundaryY)
+		posY = -boundaryY;
+	else if (posY > boundaryY)
+		posY = boundaryY;
 	
-	if ((posX <= boundary) && (posX >= -boundary))
-		posX += velX*rate;
-	else if (posX < -boundary)
-		posX = -boundary;
-	else if (posX > boundary)
-		posX = boundary;
+	if ((posX <= boundaryX) && (posX >= -boundaryX))
+		if((velX > 0) && (posX == boundaryX))
+		{
+		}
+		else if((velX < 0) && (posX == -boundaryX))
+		{
+		} 
+		else
+			posX += velX*rate;
+	else if (posX < -boundaryX)
+		posX = -boundaryX;
+	else if (posX > boundaryX)
+		posX = boundaryX;
 }
 
 void Platform::setVelX(float x)

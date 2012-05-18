@@ -2,70 +2,39 @@
 #include <windows.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
-#include "Platform.h"
-#include "BrickSet.h"
-#include "Border.h"
-#include "Ball.h"
-#include "Camera.h"
+#include "Level.h"
 
-bool App::buttonPressed;
-bool App::justStarted;
-float App::fLastIdleTime;
-Camera *App::camera;
-Border *App::border;
-Platform *App::platform;
-BrickSet *App::brickSet;
-Ball *App::ball;
+Level *App::level;
 
 App::App(void)
 {
-	buttonPressed = false;
-	fLastIdleTime = 0;
-	camera = new Camera();
-	border = new Border();
-	platform = new Platform();
-	brickSet = new BrickSet();
-	ball = new Ball();
+	level = new Level();
 }
 
 App::~App(void)
 {
-	delete camera;
-	delete border;
-	delete platform;
-	delete brickSet;
-	delete ball;
+	delete level;
 }
 
 void App::display(void) 
 {
-	float fTime, fSimTime;
- 
-	fTime=glutGet(GLUT_ELAPSED_TIME)/10;
- 	fSimTime=fTime-fLastIdleTime;
- 
     glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
     glEnable (GL_DEPTH_TEST); //enable the depth testing
     glEnable (GL_LIGHTING); //enable the lighting
     glEnable (GL_LIGHT0); //enable LIGHT0, our Diffuse Light
+	glEnable (GL_LIGHT1); //enable LIGHT1, our Ambient Light
+	GLfloat AmbientLight[] = {0.1, 0.1, 0.1};
+	glLightfv (GL_LIGHT1, GL_AMBIENT, AmbientLight); //change the light accordingly
+	/*GLfloat LightPosition[] = {0.0, 0.0, 1.0, 0.0};	//set posiotion of light
+	glLightfv (GL_LIGHT0, GL_POSITION, LightPosition); */
     glEnable (GL_COLOR_MATERIAL);
     glShadeModel (GL_SMOOTH); //set the shader to smooth shader
     
     glLoadIdentity();
 	
-	camera->setAngle();
-	border->display();
-	platform->display();
-	platform->move(fSimTime, border);
-	brickSet->display();
-	ball->move(fSimTime);
-	ball->checkCollisions(border);
-	ball->checkCollisions(brickSet);
-	ball->checkCollisions(platform);
-	ball->display();
-
-	fLastIdleTime=fTime;
+	if (level != NULL)
+		level->display();
 
     glutSwapBuffers(); //swap the buffers
 }
@@ -82,56 +51,26 @@ void App::reshape(int w, int h)
 
 void App::pressKey (int key, int x, int y) 
 {
-	switch (key)
-	{
-		case GLUT_KEY_UP: platform->setVelY(0.2);
-						  break;
-		case GLUT_KEY_DOWN:	platform->setVelY(-0.2);
-							break;
-		case GLUT_KEY_RIGHT: platform->setVelX(0.2);
-							 break;
-		case GLUT_KEY_LEFT:	platform->setVelX(-0.2);
-							break;
-    }
+	if (level != NULL)
+		level->pressKey(key, x, y);
 }
 
 void App::releaseKey(int key, int x, int y)
 {
-	switch (key) 
-	{
-		case GLUT_KEY_UP:	
-		case GLUT_KEY_DOWN:	platform->setVelY(0);
-							break;
-		case GLUT_KEY_RIGHT:	
-		case GLUT_KEY_LEFT:	platform->setVelX(0);
-							break;
-	}
+	if (level != NULL)
+		level->releaseKey(key, x, y);
 }
 
 void App::mouseButton(int button, int state, int x, int y)
 {
-	// only start motion if the left button is pressed
-	if (button == GLUT_RIGHT_BUTTON)
-	{
-		// when the button is released
-		if (state == GLUT_UP) 
-		{
-			buttonPressed = false;
-		}
-		else // state = GLUT_DOWN
-		{		
-			buttonPressed = true;
-			justStarted = true;
-		}
-	}
+	if (level != NULL)
+		level->mouseButton(button, state, x, y);
 }
 
 void App::mouseMovement(int x, int y)
 {
-	if(buttonPressed == true)
-	{
-		camera->move(x, y, justStarted);
-	}
+	if (level != NULL)
+		level->mouseMovement(x, y);
 }
 
 void App::run()

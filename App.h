@@ -1,21 +1,10 @@
 #pragma once
-class Camera;
-class Border;
-class Platform;
-class BrickSet;
-class Ball;
+class Level;
 
 class App
 {
 private:
-	static bool buttonPressed;
-	static bool justStarted;
-	static float fLastIdleTime;
-	static Camera *camera;
-	static Border *border;
-	static Platform *platform;
-	static BrickSet *brickSet;
-	static Ball *ball;
+	static Level *level;	//area with balls and bricks
 
 public:
 	App(void);
