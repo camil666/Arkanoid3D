@@ -3,13 +3,17 @@
 class Border
 {
 private:
-	float size;
+	float width;
+	float height;
+	float depth;
 
 public:
 	Border(void);
 	~Border(void);
 
 	void display();
-	float getSize();
+	float getWidth();
+	float getHeight();
+	float getDepth();
 };
 

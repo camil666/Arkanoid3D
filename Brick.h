@@ -10,7 +10,7 @@ private:
 	float posX;
 	float posY;
 	float posZ;
-	int hp;
+	int durability;
 
 public:
 	Brick(void);

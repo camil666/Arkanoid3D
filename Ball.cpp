@@ -18,9 +18,9 @@ void Ball::display()
 {
     //rysowanie2
 	glPushMatrix();
-    glColor3f(0.0f, 0.0f, 1.0f);
-	glTranslatef(posX, posY, posZ);
-    glutSolidSphere(radius, 12, 12);
+    glColor3f(0.0f, 0.0f, 1.0f);	//set color
+	glTranslatef(posX, posY, posZ);	//set posiotion
+    glutSolidSphere(radius, 12, 12);	//render the sphere
 	glPopMatrix();
 }
 
@@ -46,45 +46,40 @@ void Ball::bounce(BounceType type)
 
 void Ball::checkCollisions(Border *border)
 {
-	float tmpBounceCoord = border->getSize()/2.0;
-	float tmpBallRespawnCoord = tmpBounceCoord-radius;
-
-	if (posX+radius > tmpBounceCoord)
+	if (posX+radius > border->getWidth()/2.0)	//ball is past right side of the border
 	{
 		bounce(X_BOUNCE);
-		posX = tmpBallRespawnCoord;
+		posX = border->getWidth()/2.0 - radius;	//set ball position
 	}
-	else if (posX-radius < -tmpBounceCoord)
+	else if (posX-radius < -(border->getWidth()/2.0))	//ball is past left side of the border
 	{
 		bounce(X_BOUNCE);
-		posX = -tmpBallRespawnCoord;
+		posX = -(border->getWidth()/2.0 - radius);
 	}
 
-	if (posY+radius > tmpBounceCoord)
+	if (posY+radius > border->getHeight()/2.0)	//ball is past lower side of the border
 	{
 		bounce(Y_BOUNCE);
-		posY = tmpBallRespawnCoord;
+		posY = border->getHeight()/2.0 - radius;
 	}
-	else if (posY-radius < -tmpBounceCoord)
+	else if (posY-radius < -(border->getHeight()/2.0))	//ball is past upper side of the border
 	{
 		bounce(Y_BOUNCE);
-		posY = -tmpBallRespawnCoord;
+		posY = -(border->getHeight()/2.0 - radius);
 	}
 
-	//if (posZ+radius > 0)		//pilka stracona, koniec gry, do usuniecia w odpowiednim czasie
-	//{
-	//	bounce(Z_BOUNCE);
-	//	posZ = -radius;
-	//}
-	//else 
-	if (posZ-radius < -(tmpBounceCoord*4.0))
+	if (posZ-radius < -(border->getDepth()))	//ball is past far side of the border
 	{
 		bounce(Z_BOUNCE);
-		posZ = -((tmpBounceCoord*4.0)-1.0);
+		posZ = -(border->getDepth() - radius);
 	}
 }
 
-void Ball::checkCollisions(BrickSet *brickSet)
+//return:
+//index of destroyed brick
+//0 if brick was hit but not destroyed or no brick was hit
+//-1 if there is no bricks left
+int Ball::checkCollisions(BrickSet *brickSet)
 {
 	if (brickSet->getBricks().size() != 0)
 	{
@@ -173,15 +168,21 @@ void Ball::checkCollisions(BrickSet *brickSet)
 
 				if (brickSet->getBricks()[i].damage(20) == false)
 				{
-					brickSet->erase(i);
-					--i;
+					return i; //brick destroyed
 				}
 			} 
 		}
+		return 0;
 	}
+	else
+		return -1; //end of game, no bricks left
 }
 
-void Ball::checkCollisions(Platform *platform)
+//return:
+//1 if player hit the ball
+//-1 if player didn't hit the ball
+//0 if ball is not in platform move plane
+int Ball::checkCollisions(Platform *platform)
 {
 	float tmpXLeftPos = platform->getPosX()-(platform->getSize()/2.0);
 	float tmpXRightPos = platform->getPosX()+(platform->getSize()/2.0);
@@ -194,13 +195,16 @@ void Ball::checkCollisions(Platform *platform)
 		{
 			bounce(Z_BOUNCE);
 			posZ = -radius+platform->getPosZ()*2;
+			return 1;
 		}
 		else	//	game over
 		{
 			posZ = -20;	//tymczasowe cofniecie kulki na obszar gry
 			bounce(Z_BOUNCE);
+			return -1;
 		}
 	}
+	return 0;
 }
 
 float Ball::calculateDistance(float x1, float y1, float z1, float x2, float y2, float z2)

@@ -2,6 +2,7 @@
 class Border;
 class BrickSet;
 class Platform;
+class PowerUpSet;
 
 enum BounceType {X_BOUNCE, Y_BOUNCE, Z_BOUNCE};
 
@@ -17,6 +18,8 @@ private:
 	float posZ;
 
 	float radius;
+	float calculateDistance(float x1, float y1, float z1, float x2, float y2, float z2);
+	void bounce(BounceType type);
 
 public:
 	Ball(void);
@@ -24,9 +27,7 @@ public:
 
 	void display();
 	void move(float rate);
-	void bounce(BounceType type);
 	void checkCollisions(Border *border);
-	void checkCollisions(BrickSet *brickSet);
-	void checkCollisions(Platform *platform);
-	float calculateDistance(float x1, float y1, float z1, float x2, float y2, float z2);
+	int checkCollisions(BrickSet *brickSet);
+	int checkCollisions(Platform *platform);
 };
