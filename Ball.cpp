@@ -16,7 +16,7 @@ Ball::~Ball(void)
 
 void Ball::display()
 {
-    //rysowanie
+    //rysowanie2
 	glPushMatrix();
     glColor3f(0.0f, 0.0f, 1.0f);
 	glTranslatef(posX, posY, posZ);
