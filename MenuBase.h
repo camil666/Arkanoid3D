@@ -13,18 +13,18 @@ class MenuBase
 {
 protected:
 	vector<string> menuEntries;
-	bool paused;
 	char choice;
-	float torusAngle;
+	GLfloat width;
+	GLfloat height;
 
 public:
 	MenuBase(void);
 	virtual ~MenuBase(void);
-	
-	GLfloat w1;
-	GLfloat h1;
 	virtual void display() = 0;
 	virtual int pressKey (int key, int x, int y) = 0;
-
+	virtual GLfloat getWidth() = 0;
+	virtual void setWidth(GLfloat) = 0;
+	virtual GLfloat getHeight() = 0;
+	virtual void setHeight(GLfloat) = 0;
 };
 

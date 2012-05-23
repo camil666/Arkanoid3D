@@ -7,6 +7,7 @@ class BallSet;
 class PowerUpSet;
 class Shader;
 class HUD;
+class HUDInfo;
 
 class Level
 {
@@ -23,6 +24,8 @@ private:
 	BallSet *ballSet;
 	PowerUpSet *powerUpSet;
 	HUD * hud;
+	HUDInfo *hudInfo;
+
 public:
 	Level(void);
 	~Level(void);

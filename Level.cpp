@@ -14,9 +14,9 @@
 #include "AddBallPowerUp.h"
 #include "AddPointsPowerUp.h"
 #include "HUD.h"
+#include "HUDInfo.h"
 
-
-Level::Level(void)
+Level::Level(void):points(0)
 {
 	buttonPressed = false;
 	fLastIdleTime = 0;
@@ -29,7 +29,8 @@ Level::Level(void)
 	shader = new Shader();
 	//load up shader files
 	hud = new HUD();
-	points = 0;
+	hudInfo = new HUDInfo();
+	hudInfo->setPoints(points);
 	shader->init("shader.vert", "shader.frag");
 
 	ballSet->add();
@@ -45,18 +46,19 @@ Level::~Level(void)
 	delete ballSet;
 	delete powerUpSet;
 	delete hud;
-	delete shader;
+	delete shader; 
+	delete hudInfo;
 }
 
 void Level::display()
 {
 	float fTime, fSimTime;
-	fTime=glutGet(GLUT_ELAPSED_TIME)/10;
+	fTime=(float)(glutGet(GLUT_ELAPSED_TIME)/10);
  	fSimTime=fTime-fLastIdleTime;
 
 	camera->setAngle();
 	//turn shader on for everything drawen from now
-	shader->bind();
+	shader->bind(); 
 	border->display();
 	platform->display();
 	platform->move(fSimTime, border);
@@ -90,17 +92,14 @@ void Level::display()
 	}
 	ballSet->checkCollisions(platform);
 	
-	
 	ballSet->display();
 	powerUpSet->display();
 	//turn shader off
-	shader->unbind();
-	hud->display(points);
+	shader->unbind(); 
+	hud->display(hudInfo);
 	powerUpSet->move(fSimTime);
 	powerUpSet->checkCollisions(platform);
 	
-
-
 	fLastIdleTime=fTime;
 }
 
@@ -108,13 +107,13 @@ void Level::pressKey (int key, int x, int y)
 {
 	switch (key)
 	{
-		case GLUT_KEY_UP: platform->setVelY(0.2);
+		case GLUT_KEY_UP: platform->setVelY(0.2f);
 						  break;
-		case GLUT_KEY_DOWN:	platform->setVelY(-0.2);
+		case GLUT_KEY_DOWN:	platform->setVelY(-0.2f);
 							break;
-		case GLUT_KEY_RIGHT: platform->setVelX(0.2);
+		case GLUT_KEY_RIGHT: platform->setVelX(0.2f);
 							 break;
-		case GLUT_KEY_LEFT:	platform->setVelX(-0.2);
+		case GLUT_KEY_LEFT:	platform->setVelX(-0.2f);
 							break;
     }
 }
@@ -162,6 +161,7 @@ void Level::mouseMovement(int x, int y)
 void Level::addPoints()
 {
 	points+=100;
+	hudInfo->setPoints(points);
 }
 
 HUD* Level::getHUD()

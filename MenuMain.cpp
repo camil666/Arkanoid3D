@@ -12,10 +12,6 @@ MenuMain::MenuMain(void): MenuBase()
 	menuEntries.push_back("New Game");
 	menuEntries.push_back("Hall of fame");
 	menuEntries.push_back("Exit");
-
-	paused = false;
-	choice = 0; //first position in menu
-	torusAngle = 0.0;
 }
 
 
@@ -54,25 +50,14 @@ void MenuMain::display()
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, w1, 0, h1);
+    gluOrtho2D(0, width, 0, height);
     glScalef(1, -1, 1);
-    glTranslatef(0, -h1, 0);
+    glTranslatef(0, -height, 0);
     glMatrixMode(GL_MODELVIEW);
-
-
-
 	DrawMenu();
-
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
-	/*torusAngle += 0.1;
-	glPushMatrix();
-    glColor3f(1.0f, 1.0f, 1.0f);
-	
-	glRotatef (torusAngle, 1.0f, 1.0f, 1.0f);
-    glutSolidTorus(0.6/2,0.6,15,15); 
-	glPopMatrix();*/
 }
 
 void MenuMain::DrawMenu()
@@ -97,3 +82,25 @@ void MenuMain::DrawMenu()
 		}
 	}
 }
+
+GLfloat MenuMain::getWidth()
+{
+	return this->width;
+}
+	
+
+GLfloat MenuMain::getHeight()
+{
+	return this->height;
+}
+	
+void MenuMain::setWidth(GLfloat width)
+{
+	this->width = width;
+}
+	
+void MenuMain::setHeight(GLfloat height)
+{
+	this->height = height;
+}
+

@@ -5,9 +5,10 @@
 #include <GL/freeglut.h>
 #include <string>
 #include <sstream>
+#include "HUDInfo.h"
 using namespace std;
 
-HUD::HUD(void):w1(800.0),h1(600.0)
+HUD::HUD(void)
 {
 
 }
@@ -18,17 +19,16 @@ HUD::~HUD(void)
 
 }
 
-void HUD::display(int points)
+void HUD::display(HUDInfo *hudInfo)
 {
-	
 	glPushMatrix();
 
 	glColor3f(1.0,0.0,0.0);
     glTranslatef(-12.0,-16.0,-1.5);
-    glScalef(0.02,0.02,0.02);
+    glScalef(0.02f,0.02f,0.02f);
 	string s;
 	stringstream out;
-	out << points;
+	out << hudInfo->getPoints();
 	s = "points:" + out.str();
 	glutStrokeString(GLUT_STROKE_ROMAN,(unsigned char *)s.c_str());	
 	glPopMatrix();

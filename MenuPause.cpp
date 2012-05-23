@@ -10,7 +10,6 @@ MenuPause::MenuPause(void): MenuBase()
 	menuEntries.push_back("To Main Menu");
 	menuEntries.push_back("Exit");
 
-	paused = false;
 }
 
 
@@ -40,3 +39,23 @@ void MenuPause::display()
 
 }
 
+GLfloat MenuPause::getWidth()
+{
+	return this->width;
+}
+	
+
+GLfloat MenuPause::getHeight()
+{
+	return this->height;
+}
+	
+void MenuPause::setWidth(GLfloat width)
+{
+	this->width = width;
+}
+	
+void MenuPause::setHeight(GLfloat height)
+{
+	this->height = height;
+}

@@ -49,7 +49,6 @@ void Shader::init(const char *vsFile, const char *fsFile) {
     
 	glShaderSource(shader_vp, 1, &vsText, 0);
 	glShaderSource(shader_fp, 1, &fsText, 0);
-    
 	glCompileShader(shader_vp);
 	glCompileShader(shader_fp);
     

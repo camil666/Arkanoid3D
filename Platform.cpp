@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 #include "Border.h"
 
-Platform::Platform(void):size(5.0f),posX(0),posY(0),posZ(-(size*0.05)),velX(0),velY(0)
+Platform::Platform(void):size(5.0f),posX(0.0f),posY(0.0f),posZ(-(size*0.05f)),velX(0.0f),velY(0.0f)
 {
 }
 
@@ -18,11 +18,11 @@ void Platform::display(void)
     glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(posX, posY, posZ);
 	glScalef(1.0f, 1.0f, 0.10f);
-	GLfloat mShininess[] = {50};
+	GLfloat mShininess[] = {50.0f};
     
-    GLfloat DiffuseMaterial[] = {1.0, 0.0, 0.0}; 
-    GLfloat AmbientMaterial[] = {0.5, 0.0, 0.0};
-    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    GLfloat DiffuseMaterial[] = {1.0f, 0.0f, 0.0f}; 
+    GLfloat AmbientMaterial[] = {0.5f, 0.0f, 0.0f};
+    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f}; 
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
@@ -34,8 +34,8 @@ void Platform::display(void)
 
 void Platform::move(float rate, Border *border)
 {
-	float boundaryX = (border->getWidth()-size)/2.0;
-	float boundaryY = (border->getHeight()-size)/2.0;
+	float boundaryX = (border->getWidth()-size)/2.0f;
+	float boundaryY = (border->getHeight()-size)/2.0f;
 
 	if ((posY <= boundaryY) && (posY >= -boundaryY))
 		if((velY > 0) && (posY == boundaryY))

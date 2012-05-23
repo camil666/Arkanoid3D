@@ -1,7 +1,7 @@
 #include "MenuBase.h"
 
 
-MenuBase::MenuBase(void)
+MenuBase::MenuBase(void):choice(0)
 {
 
 }

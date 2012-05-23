@@ -35,9 +35,9 @@ void App::display(void)
 	glEnable (GL_LIGHT1); //enable LIGHT1, our Ambient Light
 	GLfloat AmbientLight[] = {0.1f, 0.1f, 0.1f};
 	glLightfv (GL_LIGHT1, GL_AMBIENT, AmbientLight); //change the light accordingly*/
-	GLfloat DiffuseLight[] = {1.0, 1.0, 1.0};
-    GLfloat AmbientLight[] = {0.2, 0.2, 0.2};
-    GLfloat SpecularLight[] = {1.0, 1.0, 1.0};
+	GLfloat DiffuseLight[] = {1.0f, 1.0f, 1.0f};
+    GLfloat AmbientLight[] = {0.2f, 0.2f, 0.2f};
+    GLfloat SpecularLight[] = {1.0f, 1.0f, 1.0f};
     
     glLightfv (GL_LIGHT0, GL_SPECULAR, SpecularLight); 
     glLightfv (GL_LIGHT0, GL_DIFFUSE, DiffuseLight); 
@@ -68,16 +68,10 @@ void App::reshape(int w, int h)
 
 	if(menuBase != NULL)
 	{
-		menuBase->w1 = (GLfloat)w;
-		menuBase->h1 = (GLfloat)h;
+		menuBase->setWidth((GLfloat)w);
+		menuBase->setHeight((GLfloat)h);
 	}
 
-	if(level != NULL)
-	{
-		level->getHUD()->w1 = (GLfloat)w;
-		level->getHUD()->h1 = (GLfloat)h;
-
-	}
     glMatrixMode (GL_MODELVIEW); //set the matrix back to model
 }
 

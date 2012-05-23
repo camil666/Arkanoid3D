@@ -20,8 +20,8 @@ void Camera::setAngle(void)
 
 void Camera::move(int x, int y, bool &justStarted)
 {
-	int diffx = x-lastx; //check the difference between the current x and the last x position
-	int diffy = y-lasty; //check the difference between the current y and the last y position
+	int diffx = (int)(x-lastx); //check the difference between the current x and the last x position
+	int diffy = (int)(y-lasty); //check the difference between the current y and the last y position
 
 	if(justStarted == true)
 	{

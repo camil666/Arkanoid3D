@@ -34,12 +34,12 @@ void Border::display()
 	glPushMatrix();
     glColor3f(1.0f, 1.0f, 0.0f);
 	glScalef(width/min, height/min, depth/min);	//set the right proportions
-	glTranslatef(0.0f, 0.0f, -(min/2.0));	//move the border
-	GLfloat mShininess[] = {50};
+	glTranslatef(0.0f, 0.0f, -(min/2.0f));	//move the border
+	GLfloat mShininess[] = {50.0f};
     
-    GLfloat DiffuseMaterial[] = {0.0, 0.7, 0.0}; 
-    GLfloat AmbientMaterial[] = {0.0, 0.7, 0.0};
-    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    GLfloat DiffuseMaterial[] = {0.0f, 0.7f, 0.0f}; 
+    GLfloat AmbientMaterial[] = {0.0f, 0.7f, 0.0f};
+    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f}; 
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);

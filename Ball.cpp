@@ -6,7 +6,7 @@
 #include "BrickSet.h"
 #include "Platform.h"
 
-Ball::Ball(void):velX(-0.1),velY(-0.2),velZ(-0.2),posX(0),posY(0),posZ(0),radius(1)
+Ball::Ball(void):velX(-0.1f),velY(-0.2f),velZ(-0.2f),posX(0.0f),posY(0.0f),posZ(0.0f),radius(1.0f)
 {
 }
 
@@ -20,12 +20,12 @@ void Ball::display()
 	glPushMatrix();
     glColor3f(0.0f, 0.0f, 1.0f);	//set color
 	glTranslatef(posX, posY, posZ);	//set posiotion
-	GLfloat mShininess[] = {50};
+	GLfloat mShininess[] = {50.0f};
 	//color modification - for better playing
-    float mod = posZ/62.6;
-    GLfloat DiffuseMaterial[] = {(0.0-mod), 0.0, (1.0+mod)}; 
-    GLfloat AmbientMaterial[] = {0.0, 0.0, 0.0};
-    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    float mod = posZ/62.6f;
+    GLfloat DiffuseMaterial[] = {(0.0f-mod), 0.0, (1.0f+mod)}; 
+    GLfloat AmbientMaterial[] = {0.0f, 0.0f, 0.0f};
+    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f}; 
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
@@ -57,26 +57,26 @@ void Ball::bounce(BounceType type)
 
 void Ball::checkCollisions(Border *border)
 {
-	if (posX+radius > border->getWidth()/2.0)	//ball is past right side of the border
+	if (posX+radius > border->getWidth()/2.0f)	//ball is past right side of the border
 	{
 		bounce(X_BOUNCE);
-		posX = border->getWidth()/2.0 - radius;	//set ball position
+		posX = border->getWidth()/2.0f - radius;	//set ball position
 	}
-	else if (posX-radius < -(border->getWidth()/2.0))	//ball is past left side of the border
+	else if (posX-radius < -(border->getWidth()/2.0f))	//ball is past left side of the border
 	{
 		bounce(X_BOUNCE);
-		posX = -(border->getWidth()/2.0 - radius);
+		posX = -(border->getWidth()/2.0f - radius);
 	}
 
 	if (posY+radius > border->getHeight()/2.0)	//ball is past lower side of the border
 	{
 		bounce(Y_BOUNCE);
-		posY = border->getHeight()/2.0 - radius;
+		posY = border->getHeight()/2.0f - radius;
 	}
-	else if (posY-radius < -(border->getHeight()/2.0))	//ball is past upper side of the border
+	else if (posY-radius < -(border->getHeight()/2.0f))	//ball is past upper side of the border
 	{
 		bounce(Y_BOUNCE);
-		posY = -(border->getHeight()/2.0 - radius);
+		posY = -(border->getHeight()/2.0f - radius);
 	}
 
 	if (posZ-radius < -(border->getDepth()))	//ball is past far side of the border
@@ -94,16 +94,16 @@ int Ball::checkCollisions(BrickSet *brickSet)
 {
 	if (brickSet->getBricks().size() != 0)
 	{
-		double cX, cY, cZ;		//wspó³rzêdne punktu bloku najbli¿szego kolizji
+		float cX, cY, cZ;		//wspó³rzêdne punktu bloku najbli¿szego kolizji
 
 		for (unsigned int i=0; i<brickSet->getBricks().size(); ++i)
 		{
 			float brickXLeft = brickSet->getBricks()[i].getPosX() - (brickSet->getBricks()[i].getSize());
 			float brickXRight = brickSet->getBricks()[i].getPosX() + (brickSet->getBricks()[i].getSize());
-			float brickYUp = brickSet->getBricks()[i].getPosY() + (brickSet->getBricks()[i].getSize()/2.0);
-			float brickYDown = brickSet->getBricks()[i].getPosY() - (brickSet->getBricks()[i].getSize()/2.0);
-			float brickZClose = brickSet->getBricks()[i].getPosZ() + (brickSet->getBricks()[i].getSize()/2.0);
-			float brickZFar = brickSet->getBricks()[i].getPosZ() - (brickSet->getBricks()[i].getSize()/2.0);
+			float brickYUp = brickSet->getBricks()[i].getPosY() + (brickSet->getBricks()[i].getSize()/2.0f);
+			float brickYDown = brickSet->getBricks()[i].getPosY() - (brickSet->getBricks()[i].getSize()/2.0f);
+			float brickZClose = brickSet->getBricks()[i].getPosZ() + (brickSet->getBricks()[i].getSize()/2.0f);
+			float brickZFar = brickSet->getBricks()[i].getPosZ() - (brickSet->getBricks()[i].getSize()/2.0f);
 
 			if( posX < brickXLeft )	//jeœli kula jest z lewej strony bloku
 			{
@@ -195,10 +195,10 @@ int Ball::checkCollisions(BrickSet *brickSet)
 //0 if ball is not in platform move plane
 int Ball::checkCollisions(Platform *platform)
 {
-	float tmpXLeftPos = platform->getPosX()-(platform->getSize()/2.0);
-	float tmpXRightPos = platform->getPosX()+(platform->getSize()/2.0);
-	float tmpYUpPos = platform->getPosY()-(platform->getSize()/2.0);
-	float tmpYDownPos = platform->getPosY()+(platform->getSize()/2.0);
+	float tmpXLeftPos = platform->getPosX()-(platform->getSize()/2.0f);
+	float tmpXRightPos = platform->getPosX()+(platform->getSize()/2.0f);
+	float tmpYUpPos = platform->getPosY()-(platform->getSize()/2.0f);
+	float tmpYDownPos = platform->getPosY()+(platform->getSize()/2.0f);
 
 	if(posZ + radius >= platform->getPosZ()*2.0)
 	{
