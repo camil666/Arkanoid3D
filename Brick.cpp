@@ -21,9 +21,19 @@ Brick::~Brick(void)
 void Brick::display()
 {
 	glPushMatrix();
-	glColor3f(1.0f, 1.0f, 1.0f);	//set colors
+	glColor3f(0.0f, 1.0f, 1.0f);	//set colors
 	glTranslated(posX, posY, posZ); //translate the cube
 	glScalef(2.0f, 1.0f, 1.0f);	//scale the cube
+	GLfloat mShininess[] = {1};
+    
+    GLfloat DiffuseMaterial[] = {0.0, 0.5, 0.0}; 
+    GLfloat AmbientMaterial[] = {0.0, 0.5, 0.0};
+    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
 	glutSolidCube(size); //draw the cuboid
 	glPopMatrix();
 }

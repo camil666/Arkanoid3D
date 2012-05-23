@@ -1,5 +1,6 @@
 #include "Level.h"
 #include <windows.h>
+#include "shader.h"
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <time.h>
@@ -13,6 +14,7 @@
 #include "AddBallPowerUp.h"
 #include "AddPointsPowerUp.h"
 
+
 Level::Level(void)
 {
 	buttonPressed = false;
@@ -23,6 +25,9 @@ Level::Level(void)
 	brickSet = new BrickSet();
 	ballSet = new BallSet();
 	powerUpSet = new PowerUpSet();
+	shader = new Shader();
+	//load up shader files
+	shader->init("shader.vert", "shader.frag");
 
 	ballSet->add();
 }
@@ -35,16 +40,18 @@ Level::~Level(void)
 	delete brickSet;
 	delete ballSet;
 	delete powerUpSet;
+	delete shader;
 }
 
 void Level::display()
 {
 	float fTime, fSimTime;
- 
 	fTime=glutGet(GLUT_ELAPSED_TIME)/10;
  	fSimTime=fTime-fLastIdleTime;
 
 	camera->setAngle();
+	//turn shader on for everything drawen from now
+	shader->bind();
 	border->display();
 	platform->display();
 	platform->move(fSimTime, border);
@@ -73,12 +80,16 @@ void Level::display()
 		}
 		else if (values[i] == -1)
 		{
-			//TODO: end of level, no bricks left
+			//TODO: end of level, no bricks left D:
 		}
 	}
 	ballSet->checkCollisions(platform);
+	
+	
 	ballSet->display();
 	powerUpSet->display();
+	//turn shader off
+	shader->unbind();
 	powerUpSet->move(fSimTime);
 	powerUpSet->checkCollisions(platform);
 

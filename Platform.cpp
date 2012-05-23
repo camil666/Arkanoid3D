@@ -18,6 +18,16 @@ void Platform::display(void)
     glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(posX, posY, posZ);
 	glScalef(1.0f, 1.0f, 0.10f);
+	GLfloat mShininess[] = {50};
+    
+    GLfloat DiffuseMaterial[] = {1.0, 0.0, 0.0}; 
+    GLfloat AmbientMaterial[] = {0.5, 0.0, 0.0};
+    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
     glutWireCube(size);
 	glPopMatrix();
 }

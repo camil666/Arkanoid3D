@@ -5,6 +5,7 @@ class Platform;
 class BrickSet;
 class BallSet;
 class PowerUpSet;
+class Shader;
 
 class Level
 {
@@ -13,6 +14,7 @@ private:
 	bool buttonPressed;
 	bool justStarted;
 	float fLastIdleTime;
+	Shader *shader;
 	Camera *camera;
 	Border *border;
 	Platform *platform;

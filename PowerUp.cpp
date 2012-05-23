@@ -21,7 +21,17 @@ void PowerUp::display()
     glColor3f(colR, colG, colB);
 	glTranslatef(posX, posY, posZ);
 	glRotatef (angle, 1.0f, 1.0f, 1.0f);
-    glutSolidTorus(size/2,size,15,15); 
+	GLfloat mShininess[] = {50};
+    
+    GLfloat DiffuseMaterial[] = {colR, colG, colB}; 
+    GLfloat AmbientMaterial[] = {colR/2, colG/2, colB/2};
+    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+    drawCheerios(size/2,size,15,15); 
 	glPopMatrix();
 }
 
@@ -29,6 +39,11 @@ void PowerUp::move(float rate)
 {
 	posZ+=vel*rate;
 	angle+=rate*rotateSpeed;
+}
+
+void PowerUp::drawCheerios(double innerRadius, double outerRadius, int nsides, int rings)
+{
+	glutSolidTorus(innerRadius, outerRadius, nsides, rings);
 }
 
 float PowerUp::getPosX()

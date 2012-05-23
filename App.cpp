@@ -1,7 +1,9 @@
 #include "App.h"
 #include <windows.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
+#include <GL/glext.h>
 #include "Level.h"
 
 Level *App::level;
@@ -21,13 +23,20 @@ void App::display(void)
     glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
     glEnable (GL_DEPTH_TEST); //enable the depth testing
-    glEnable (GL_LIGHTING); //enable the lighting
+    /*glEnable (GL_LIGHTING); //enable the lighting
     glEnable (GL_LIGHT0); //enable LIGHT0, our Diffuse Light
 	glEnable (GL_LIGHT1); //enable LIGHT1, our Ambient Light
 	GLfloat AmbientLight[] = {0.1, 0.1, 0.1};
-	glLightfv (GL_LIGHT1, GL_AMBIENT, AmbientLight); //change the light accordingly
-	/*GLfloat LightPosition[] = {0.0, 0.0, 1.0, 0.0};	//set posiotion of light
-	glLightfv (GL_LIGHT0, GL_POSITION, LightPosition); */
+	glLightfv (GL_LIGHT1, GL_AMBIENT, AmbientLight); //change the light accordingly*/
+	GLfloat DiffuseLight[] = {1.0, 1.0, 1.0};
+    GLfloat AmbientLight[] = {0.2, 0.2, 0.2};
+    GLfloat SpecularLight[] = {1.0, 1.0, 1.0};
+    
+    glLightfv (GL_LIGHT0, GL_SPECULAR, SpecularLight); 
+    glLightfv (GL_LIGHT0, GL_DIFFUSE, DiffuseLight); 
+    glLightfv (GL_LIGHT0, GL_AMBIENT, AmbientLight);
+	GLfloat LightPosition[] = {10.0, 0.0, 10.0, 0.0};	//set posiotion of light
+	glLightfv (GL_LIGHT0, GL_POSITION, LightPosition); 
     glEnable (GL_COLOR_MATERIAL);
     glShadeModel (GL_SMOOTH); //set the shader to smooth shader
     
@@ -75,10 +84,7 @@ void App::mouseMovement(int x, int y)
 
 void App::run()
 {
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
-    glutInitWindowSize(800, 600);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("Arkanoid");
+	
 	glutDisplayFunc(display);
     glutIdleFunc(display);
     glutReshapeFunc(reshape);

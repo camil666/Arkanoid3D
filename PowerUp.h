@@ -20,6 +20,7 @@ public:
 
 	void display();
 	void move(float rate);
+	void drawCheerios(double, double, int, int);
 
 	float getPosX();
 	float getPosY();

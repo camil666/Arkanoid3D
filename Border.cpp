@@ -35,6 +35,16 @@ void Border::display()
     glColor3f(1.0f, 1.0f, 0.0f);
 	glScalef(width/min, height/min, depth/min);	//set the right proportions
 	glTranslatef(0.0f, 0.0f, -(min/2.0));	//move the border
+	GLfloat mShininess[] = {50};
+    
+    GLfloat DiffuseMaterial[] = {0.0, 0.7, 0.0}; 
+    GLfloat AmbientMaterial[] = {0.0, 0.7, 0.0};
+    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
+    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
     glutWireCube(min);
 	glPopMatrix();
 }
