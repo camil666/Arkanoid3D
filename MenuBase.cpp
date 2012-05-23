@@ -3,9 +3,11 @@
 
 MenuBase::MenuBase(void)
 {
+
 }
 
 
 MenuBase::~MenuBase(void)
 {
+
 }

@@ -5,6 +5,7 @@ class Platform;
 class BrickSet;
 class BallSet;
 class PowerUpSet;
+class HUD;
 
 class Level
 {
@@ -19,7 +20,7 @@ private:
 	BrickSet *brickSet;
 	BallSet *ballSet;
 	PowerUpSet *powerUpSet;
-
+	HUD * hud;
 public:
 	Level(void);
 	~Level(void);
@@ -30,5 +31,6 @@ public:
 	void mouseButton(int button, int state, int x, int y);
 	void mouseMovement(int x, int y);
 	void addPoints();
+	HUD* getHUD();
 };
 
