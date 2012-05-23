@@ -5,17 +5,24 @@
 #include <GL/glut.h>
 #include <GL/glext.h>
 #include "Level.h"
+#include "MenuBase.h"
+#include "MenuMain.h"
+#include "MenuPause.h"
+#include "HUD.h"
 
 Level *App::level;
+MenuBase * App::menuBase;
 
 App::App(void)
 {
-	level = new Level();
+	level = NULL;
+	menuBase = new MenuMain();
 }
 
 App::~App(void)
 {
 	delete level;
+	delete menuBase;
 }
 
 void App::display(void) 
@@ -26,7 +33,7 @@ void App::display(void)
     /*glEnable (GL_LIGHTING); //enable the lighting
     glEnable (GL_LIGHT0); //enable LIGHT0, our Diffuse Light
 	glEnable (GL_LIGHT1); //enable LIGHT1, our Ambient Light
-	GLfloat AmbientLight[] = {0.1, 0.1, 0.1};
+	GLfloat AmbientLight[] = {0.1f, 0.1f, 0.1f};
 	glLightfv (GL_LIGHT1, GL_AMBIENT, AmbientLight); //change the light accordingly*/
 	GLfloat DiffuseLight[] = {1.0, 1.0, 1.0};
     GLfloat AmbientLight[] = {0.2, 0.2, 0.2};
@@ -44,6 +51,8 @@ void App::display(void)
 	
 	if (level != NULL)
 		level->display();
+	if(menuBase != NULL)
+		menuBase->display();
 
     glutSwapBuffers(); //swap the buffers
 }
@@ -54,7 +63,21 @@ void App::reshape(int w, int h)
     glMatrixMode (GL_PROJECTION); //set the matrix to projection
 
     glLoadIdentity ();
+
     gluPerspective (60, (GLfloat)w / (GLfloat)h, 0.1, 100.0); //set the perspective (angle of sight, width, height, , depth)
+
+	if(menuBase != NULL)
+	{
+		menuBase->w1 = (GLfloat)w;
+		menuBase->h1 = (GLfloat)h;
+	}
+
+	if(level != NULL)
+	{
+		level->getHUD()->w1 = (GLfloat)w;
+		level->getHUD()->h1 = (GLfloat)h;
+
+	}
     glMatrixMode (GL_MODELVIEW); //set the matrix back to model
 }
 
@@ -62,6 +85,35 @@ void App::pressKey (int key, int x, int y)
 {
 	if (level != NULL)
 		level->pressKey(key, x, y);
+	if(menuBase != NULL)
+		menuBase->pressKey(key,x,y);
+}
+
+void App::pressKeyEnter (unsigned char key, int x, int y) 
+{
+	if(menuBase != NULL)
+	{
+		switch(menuBase->pressKey(key,x,y))
+		{
+			case 0:		//Start new game
+				delete menuBase;
+				menuBase = NULL;
+				level = new Level();
+				break;
+			case 1:		//Hall of fame
+				break;
+			case 2:		//Exit
+				exit(0);
+				break;
+			case 3:		//
+			default: 
+				break;
+		}
+	}
+	if(level != NULL)
+	{
+		level->pressKey(key,x,y);
+	}
 }
 
 void App::releaseKey(int key, int x, int y)
@@ -94,6 +146,7 @@ void App::run()
     //glutPassiveMotionFunc(mouseMovement); //check for mouse movement
 
     glutSpecialFunc(pressKey);
+	glutKeyboardFunc(pressKeyEnter);
 
 	// here are the new entries
 	glutIgnoreKeyRepeat(1);

@@ -13,6 +13,7 @@
 #include "PowerUpSet.h"
 #include "AddBallPowerUp.h"
 #include "AddPointsPowerUp.h"
+#include "HUD.h"
 
 
 Level::Level(void)
@@ -27,9 +28,12 @@ Level::Level(void)
 	powerUpSet = new PowerUpSet();
 	shader = new Shader();
 	//load up shader files
+	hud = new HUD();
+	points = 0;
 	shader->init("shader.vert", "shader.frag");
 
 	ballSet->add();
+
 }
 
 Level::~Level(void)
@@ -40,6 +44,7 @@ Level::~Level(void)
 	delete brickSet;
 	delete ballSet;
 	delete powerUpSet;
+	delete hud;
 	delete shader;
 }
 
@@ -87,11 +92,14 @@ void Level::display()
 	
 	
 	ballSet->display();
+	hud->display(points);
 	powerUpSet->display();
 	//turn shader off
 	shader->unbind();
 	powerUpSet->move(fSimTime);
 	powerUpSet->checkCollisions(platform);
+	
+
 
 	fLastIdleTime=fTime;
 }
@@ -121,6 +129,7 @@ void Level::releaseKey(int key, int x, int y)
 		case GLUT_KEY_RIGHT:	
 		case GLUT_KEY_LEFT:	platform->setVelX(0);
 							break;
+
 	}
 }
 
@@ -153,4 +162,9 @@ void Level::mouseMovement(int x, int y)
 void Level::addPoints()
 {
 	points+=100;
+}
+
+HUD* Level::getHUD()
+{
+	return hud;
 }
