@@ -92,10 +92,10 @@ void Level::display()
 	
 	
 	ballSet->display();
-	hud->display(points);
 	powerUpSet->display();
 	//turn shader off
 	shader->unbind();
+	hud->display(points);
 	powerUpSet->move(fSimTime);
 	powerUpSet->checkCollisions(platform);
 	
