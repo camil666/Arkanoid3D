@@ -1,9 +1,9 @@
 #ifndef OS_H
 #define OS_H
 
-#ifdef WIN32
+#ifdef _WIN32
     #define WINDOWS
-#elif WIN64
+#elif _WIN64
     #define WINDOWS
 #endif
 
