@@ -1,5 +1,7 @@
 #include "Level.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include "shader.h"
 #include <GL/gl.h>
 #include <GL/glut.h>
@@ -49,7 +51,7 @@ Level::~Level(void)
 	delete powerUpSet;
 	delete particleSet;
 	delete hud;
-	delete shader; 
+	delete shader;
 	delete hudInfo;
 }
 
@@ -61,7 +63,7 @@ void Level::display()
 
 	camera->setAngle();
 	//turn shader on for everything drawen from now
-	shader->bind(); 
+	shader->bind();
 	border->display();
 	platform->display();
 	platform->move(fSimTime, border);
@@ -95,21 +97,21 @@ void Level::display()
 		}
 	}
 	ballSet->checkCollisions(platform);
-	
+
 	particleSet->display();
 	particleSet->update();
 	ballSet->display();
 	powerUpSet->display();
 	//turn shader off
-	shader->unbind(); 
+	shader->unbind();
 	hud->display(hudInfo);
 	powerUpSet->move(fSimTime);
 	powerUpSet->checkCollisions(platform);
-	
+
 	fLastIdleTime=fTime;
 }
 
-void Level::pressKey (int key, int x, int y) 
+void Level::pressKey (int key, int x, int y)
 {
 	switch (key)
 	{
@@ -126,12 +128,12 @@ void Level::pressKey (int key, int x, int y)
 
 void Level::releaseKey(int key, int x, int y)
 {
-	switch (key) 
+	switch (key)
 	{
-		case GLUT_KEY_UP:	
+		case GLUT_KEY_UP:
 		case GLUT_KEY_DOWN:	platform->setVelY(0);
 							break;
-		case GLUT_KEY_RIGHT:	
+		case GLUT_KEY_RIGHT:
 		case GLUT_KEY_LEFT:	platform->setVelX(0);
 							break;
 
@@ -144,12 +146,12 @@ void Level::mouseButton(int button, int state, int x, int y)
 	if (button == GLUT_RIGHT_BUTTON)
 	{
 		// when the button is released
-		if (state == GLUT_UP) 
+		if (state == GLUT_UP)
 		{
 			buttonPressed = false;
 		}
 		else // state = GLUT_DOWN
-		{		
+		{
 			buttonPressed = true;
 			justStarted = true;
 		}

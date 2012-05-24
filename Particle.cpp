@@ -1,12 +1,14 @@
 #include "Particle.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 
 
 //konstruktor, tworzy cz¹steczkê w punkcie o wspó³rzêdnych aa, bb,cc
-Particle::Particle(float aa, float bb,float cc):Xpos(aa),Ypos(bb),Zpos(cc)							  
-{	
+Particle::Particle(float aa, float bb,float cc):Xpos(aa),Ypos(bb),Zpos(cc)
+{
 	//losowanie wartosci o jaka czasteczke bedzie sie przemieszczac
 	 Xmov = (((((((2) * rand()%11) + 1)) *	rand()%11) + 1) * 0.005) - (((((((2) * rand()%11) + 1) - 1 + 1) * rand()%11) + 1) * 0.005);
 	 Zmov = (((((((2) * rand()%11) + 1)) *rand()%11) + 1) * 0.005) - (((((((2) * rand()%11) + 1) - 1 + 1) * rand()%11) + 1) * 0.005);
@@ -16,13 +18,13 @@ Particle::Particle(float aa, float bb,float cc):Xpos(aa),Ypos(bb),Zpos(cc)
 	 Scalez = 0.30;
 	 Direction = 0;
 	 Acceleration = ((((((8 - 5 + 2) * rand()%11) + 5) - 1 + 1) * rand()%11) + 1) * 0.02;
-	 Deceleration = 0.0025;	
+	 Deceleration = 0.0025;
 }
 
 
 Particle::~Particle(void)
 {
-	
+
 }
 
 

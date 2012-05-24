@@ -1,5 +1,7 @@
 #include "Platform.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "Border.h"
@@ -19,11 +21,11 @@ void Platform::display(void)
 	glTranslatef(posX, posY, posZ);
 	glScalef(1.0f, 1.0f, 0.10f);
 	GLfloat mShininess[] = {50.0f};
-    
-    GLfloat DiffuseMaterial[] = {1.0f, 0.0f, 0.0f}; 
+
+    GLfloat DiffuseMaterial[] = {1.0f, 0.0f, 0.0f};
     GLfloat AmbientMaterial[] = {0.5f, 0.0f, 0.0f};
-    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f}; 
-    
+    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f};
+
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
@@ -43,21 +45,21 @@ void Platform::move(float rate, Border *border)
 		}
 		else if((velY < 0) && (posY == -boundaryY))
 		{
-		} 
+		}
 		else
 			posY += velY*rate;
 	else if (posY < -boundaryY)
 		posY = -boundaryY;
 	else if (posY > boundaryY)
 		posY = boundaryY;
-	
+
 	if ((posX <= boundaryX) && (posX >= -boundaryX))
 		if((velX > 0) && (posX == boundaryX))
 		{
 		}
 		else if((velX < 0) && (posX == -boundaryX))
 		{
-		} 
+		}
 		else
 			posX += velX*rate;
 	else if (posX < -boundaryX)

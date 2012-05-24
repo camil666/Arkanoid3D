@@ -1,5 +1,7 @@
 #include "PowerUp.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 
@@ -22,16 +24,16 @@ void PowerUp::display()
 	glTranslatef(posX, posY, posZ);
 	glRotatef (angle, 1.0f, 1.0f, 1.0f);
 	GLfloat mShininess[] = {50};
-    
-    GLfloat DiffuseMaterial[] = {colR, colG, colB}; 
+
+    GLfloat DiffuseMaterial[] = {colR, colG, colB};
     GLfloat AmbientMaterial[] = {colR/2, colG/2, colB/2};
-    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f}; 
-    
+    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f};
+
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
-    drawCheerios(size/2,size,15,15); 
+    drawCheerios(size/2,size,15,15);
 	glPopMatrix();
 }
 

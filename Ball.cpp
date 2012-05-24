@@ -1,10 +1,13 @@
 #include "Ball.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "Border.h"
 #include "BrickSet.h"
 #include "Platform.h"
+#include <cmath>
 
 Ball::Ball(void):velX(-0.1f),velY(-0.2f),velZ(-0.2f),posX(0.0f),posY(0.0f),posZ(0.0f),radius(1.0f)
 {
@@ -23,10 +26,10 @@ void Ball::display()
 	GLfloat mShininess[] = {50.0f};
 	//color modification - for better playing
     float mod = posZ/62.6f;
-    GLfloat DiffuseMaterial[] = {(0.0f-mod), 0.0, (1.0f+mod)}; 
+    GLfloat DiffuseMaterial[] = {(0.0f-mod), 0.0, (1.0f+mod)};
     GLfloat AmbientMaterial[] = {0.0f, 0.0f, 0.0f};
-    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f}; 
-    
+    GLfloat SpecularMaterial[] = {1.0f, 1.0f, 1.0f};
+
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
@@ -181,7 +184,7 @@ int Ball::checkCollisions(BrickSet *brickSet)
 				{
 					return i; //brick destroyed
 				}
-			} 
+			}
 		}
 		return 0;
 	}

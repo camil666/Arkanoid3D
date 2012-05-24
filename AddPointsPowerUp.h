@@ -1,5 +1,5 @@
 #pragma once
-#include "powerup.h"
+#include "PowerUp.h"
 
 class AddPointsPowerUp :public PowerUp
 {

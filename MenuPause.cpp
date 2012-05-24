@@ -1,5 +1,7 @@
 #include "MenuPause.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <string>
@@ -22,9 +24,9 @@ int MenuPause::pressKey(int key, int x, int y)
 {
 	switch (key)
 	{
-		case GLUT_KEY_UP: 
+		case GLUT_KEY_UP:
 						  break;
-		case GLUT_KEY_DOWN:	
+		case GLUT_KEY_DOWN:
 							break;
 		case 13:		//enter
 			break;
@@ -43,18 +45,18 @@ GLfloat MenuPause::getWidth()
 {
 	return this->width;
 }
-	
+
 
 GLfloat MenuPause::getHeight()
 {
 	return this->height;
 }
-	
+
 void MenuPause::setWidth(GLfloat width)
 {
 	this->width = width;
 }
-	
+
 void MenuPause::setHeight(GLfloat height)
 {
 	this->height = height;

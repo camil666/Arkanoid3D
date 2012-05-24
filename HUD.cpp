@@ -1,5 +1,7 @@
 #include "HUD.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
@@ -30,20 +32,20 @@ void HUD::display(HUDInfo *hudInfo)
 	stringstream out;
 	out << hudInfo->getPoints();
 	s = "points:" + out.str();
-	glutStrokeString(GLUT_STROKE_ROMAN,(unsigned char *)s.c_str());	
+	glutStrokeString(GLUT_STROKE_ROMAN,(unsigned char *)s.c_str());
 	glPopMatrix();
-    
+
 	/*
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 	gluOrtho2D(0, w1/2, 0, h1/2);
-	
+
 	glScalef(0.1, 0.1, 0.1);
 	glTranslatef(0, 13.0, -4.0);
 	glMatrixMode(GL_MODELVIEW);
 
-	
+
 	glLoadIdentity ();
 
 	glColor3f(1.0,0.0,0.0);
@@ -52,7 +54,7 @@ void HUD::display(HUDInfo *hudInfo)
 		glVertex3d(1.0,   0, -0.5);
 		glVertex3d(0.5, 1.0, -0.5);
 	glEnd();
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);

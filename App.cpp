@@ -1,5 +1,9 @@
 #include "App.h"
+
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
+
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
@@ -25,7 +29,7 @@ App::~App(void)
 	delete menuBase;
 }
 
-void App::display(void) 
+void App::display(void)
 {
     glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
@@ -38,17 +42,17 @@ void App::display(void)
 	GLfloat DiffuseLight[] = {1.0f, 1.0f, 1.0f};
     GLfloat AmbientLight[] = {0.2f, 0.2f, 0.2f};
     GLfloat SpecularLight[] = {1.0f, 1.0f, 1.0f};
-    
-    glLightfv (GL_LIGHT0, GL_SPECULAR, SpecularLight); 
-    glLightfv (GL_LIGHT0, GL_DIFFUSE, DiffuseLight); 
+
+    glLightfv (GL_LIGHT0, GL_SPECULAR, SpecularLight);
+    glLightfv (GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
     glLightfv (GL_LIGHT0, GL_AMBIENT, AmbientLight);
 	GLfloat LightPosition[] = {10.0, 0.0, 10.0, 0.0};	//set posiotion of light
-	glLightfv (GL_LIGHT0, GL_POSITION, LightPosition); 
+	glLightfv (GL_LIGHT0, GL_POSITION, LightPosition);
     glEnable (GL_COLOR_MATERIAL);
     glShadeModel (GL_SMOOTH); //set the shader to smooth shader
-    
+
     glLoadIdentity();
-	
+
 	if (level != NULL)
 		level->display();
 	if(menuBase != NULL)
@@ -57,7 +61,7 @@ void App::display(void)
     glutSwapBuffers(); //swap the buffers
 }
 
-void App::reshape(int w, int h) 
+void App::reshape(int w, int h)
 {
     glViewport (0, 0, (GLsizei)w, (GLsizei)h); //set the viewport to the current window specifications
     glMatrixMode (GL_PROJECTION); //set the matrix to projection
@@ -75,7 +79,7 @@ void App::reshape(int w, int h)
     glMatrixMode (GL_MODELVIEW); //set the matrix back to model
 }
 
-void App::pressKey (int key, int x, int y) 
+void App::pressKey (int key, int x, int y)
 {
 	if (level != NULL)
 		level->pressKey(key, x, y);
@@ -83,7 +87,7 @@ void App::pressKey (int key, int x, int y)
 		menuBase->pressKey(key,x,y);
 }
 
-void App::pressKeyEnter (unsigned char key, int x, int y) 
+void App::pressKeyEnter (unsigned char key, int x, int y)
 {
 	if(menuBase != NULL)
 	{
@@ -100,7 +104,7 @@ void App::pressKeyEnter (unsigned char key, int x, int y)
 				exit(0);
 				break;
 			case 3:		//
-			default: 
+			default:
 				break;
 		}
 	}
@@ -130,7 +134,7 @@ void App::mouseMovement(int x, int y)
 
 void App::run()
 {
-	
+
 	glutDisplayFunc(display);
     glutIdleFunc(display);
     glutReshapeFunc(reshape);

@@ -1,5 +1,7 @@
 #include "MenuMain.h"
+#ifdef WIN32 //if using windows then do windows specific stuff.
 #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
@@ -25,12 +27,12 @@ int MenuMain::pressKey(int key, int x, int y)
 	int retVal = -1;
 	switch (key)
 	{
-		case GLUT_KEY_UP: 
+		case GLUT_KEY_UP:
 			choice--;
 			if(choice < 0)
 				choice = menuEntries.size() - 1;
 			break;
-		case GLUT_KEY_DOWN:	
+		case GLUT_KEY_DOWN:
 			choice++;
 			if(choice >= menuEntries.size())
 				choice = 0;
@@ -69,7 +71,7 @@ void MenuMain::DrawMenu()
 		glRasterPos2i(100,100+i*50);
 		glColor3f(1.0f,1.0f,1.f);
 		string temp = this->menuEntries.at(i);
-		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char *)temp.c_str());	
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char *)temp.c_str());
 		glPopMatrix();
 		if(choice == i)
 		{
@@ -87,18 +89,18 @@ GLfloat MenuMain::getWidth()
 {
 	return this->width;
 }
-	
+
 
 GLfloat MenuMain::getHeight()
 {
 	return this->height;
 }
-	
+
 void MenuMain::setWidth(GLfloat width)
 {
 	this->width = width;
 }
-	
+
 void MenuMain::setHeight(GLfloat height)
 {
 	this->height = height;

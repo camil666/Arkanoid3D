@@ -1,5 +1,5 @@
 #pragma once
-#include "powerup.h"
+#include "PowerUp.h"
 class BallSet;
 
 class AddBallPowerUp :public PowerUp
