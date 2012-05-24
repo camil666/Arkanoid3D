@@ -1,3 +1,4 @@
+#include "OS.h"
 #include "AddPointsPowerUp.h"
 
 AddPointsPowerUp::AddPointsPowerUp(void)

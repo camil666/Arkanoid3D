@@ -1,3 +1,4 @@
+#include "OS.h"
 #include "HUDInfo.h"
 
 
@@ -29,7 +30,7 @@ void HUDInfo::setPoints(int points)
 {
 	this->points = points;
 }
-	
+
 void HUDInfo::setLives(int lives)
 {
 	this->lives = lives;

@@ -1,5 +1,5 @@
 //Funkcje sk³adowe klasy ParticleSet
-
+#include "OS.h"
 #include "ParticleSet.h"
 #include "Particle.h"
 
@@ -48,8 +48,8 @@ void ParticleSet::add_particle(float a, float b,  float c, const int n)
 {
 	for ( int i=0; i<n; ++i)
 	{
-		
+
 		Particle *	newParticle = new Particle(a, b, c);
-		particles.push_back(newParticle);			
+		particles.push_back(newParticle);
 	}
 }

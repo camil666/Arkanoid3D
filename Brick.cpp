@@ -1,3 +1,4 @@
+#include "OS.h"
 #include "Brick.h"
 
 Brick::Brick(void):size(2.0f),durability(20)
@@ -25,11 +26,11 @@ void Brick::display()
 	glTranslated(posX, posY, posZ); //translate the cube
 	glScalef(2.0f, 1.0f, 1.0f);	//scale the cube
 	GLfloat mShininess[] = {1};
-    
-    GLfloat DiffuseMaterial[] = {0.0, 0.5, 0.0}; 
+
+    GLfloat DiffuseMaterial[] = {0.0, 0.5, 0.0};
     GLfloat AmbientMaterial[] = {0.0, 0.5, 0.0};
-    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0}; 
-    
+    GLfloat SpecularMaterial[] = {1.0, 1.0, 1.0};
+
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
@@ -63,6 +64,6 @@ bool Brick::damage(int amount)
 	durability -= amount;
 	if(durability > 0)
 		return true;	//brick is still out there!
-	else 
+	else
 		return false;	//brick is destroyed :(
 }

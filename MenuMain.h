@@ -1,4 +1,5 @@
 #pragma once
+#include "OS.h"
 #include <vector>
 #include <string>
 #include "MenuBase.h"
@@ -8,7 +9,7 @@ using namespace std;
 class MenuMain: public MenuBase
 {
 private:
-	
+
 	void DrawMenu(void);
 
 public:

@@ -1,6 +1,7 @@
+#include "OS.h"
 #include "App.h"
 
-#ifdef WIN32 //if using windows then do windows specific stuff.
+#ifdef WINDOWS //if using windows then do windows specific stuff.
 #include <windows.h>
 #endif
 

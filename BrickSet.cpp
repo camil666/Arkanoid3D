@@ -1,3 +1,4 @@
+#include "OS.h"
 #include "BrickSet.h"
 
 BrickSet::BrickSet(void)

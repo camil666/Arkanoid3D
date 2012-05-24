@@ -1,3 +1,4 @@
+#include "OS.h"
 #include "PowerUpSet.h"
 #include "Platform.h"
 
@@ -66,7 +67,7 @@ void PowerUpSet::checkCollisions(Platform *platform)
 			{
 				powerUps.erase(powerUps.begin() + i);	//erase powerup
 				--i;
-			}		
+			}
 		}
     }
 }

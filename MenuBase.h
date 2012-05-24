@@ -1,8 +1,8 @@
 #pragma once
-
+#include "OS.h"
 #include <vector>
 #include <string>
-#ifdef WIN32
+#ifdef WINDOWS
 #include <windows.h>
 #endif
 #include <GL/gl.h>

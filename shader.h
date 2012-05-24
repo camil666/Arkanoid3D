@@ -1,6 +1,6 @@
 #ifndef __SHADER_H
 #define __SHADER_H
-
+#include "OS.h"
 #include <string>
 
 #if ( (defined(__MACH__)) && (defined(__APPLE__)) )
@@ -11,7 +11,7 @@
 #else
 #include <stdlib.h>
 #include <GL/glew.h>
-#ifdef WIN32 //if using windows then do windows specific stuff.
+#ifdef WINDOWS //if using windows then do windows specific stuff.
 #include <GL/wglew.h>
 #endif
 #include <GL/gl.h>

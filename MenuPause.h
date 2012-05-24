@@ -1,8 +1,9 @@
 #pragma once
+#include "OS.h"
 #include <vector>
 #include <string>
 #include "MenuBase.h"
-#ifdef WIN32
+#ifdef WINDOWS
 #include <GL\GL.h>
 #else
 #include <GL/gl.h>
