@@ -5,10 +5,7 @@
 
 
 //konstruktor, tworzy cz¹steczkê w punkcie o wspó³rzêdnych aa, bb,cc
-Particle::Particle(float aa, float bb,float cc):Xpos(aa),
-								   Ypos(bb),
-								   Zpos(cc)
-								   
+Particle::Particle(float aa, float bb,float cc):Xpos(aa),Ypos(bb),Zpos(cc)							  
 {	
 	//losowanie wartosci o jaka czasteczke bedzie sie przemieszczac
 	 Xmov = (((((((2) * rand()%11) + 1)) *	rand()%11) + 1) * 0.005) - (((((((2) * rand()%11) + 1) - 1 + 1) * rand()%11) + 1) * 0.005);
@@ -31,7 +28,6 @@ Particle::~Particle(void)
 
 void Particle::update(void)
 {
-	 glColor3f ( Red,  Green,Blue);
 	 Ypos =  Ypos + Acceleration -  Deceleration; //poczatkowo wyrzuca czasteczke do gory by pozniej spowodowac jej opadanie
 	 Deceleration =  Deceleration +0.0025; //zwiekszenie tempa opadania czasteczki
 	 Xpos =  Xpos +  Xmov;
@@ -45,7 +41,7 @@ void Particle::update(void)
 void Particle::show(void)
 {
 	glPushMatrix();
-
+	glColor3f ( Red,  Green,Blue);
     glTranslatef ( Xpos,  Ypos,  Zpos);
 	glRotatef ( Direction - 90, 0, 0, 1);
     glScalef ( Scalez,  Scalez,  Scalez);
@@ -66,7 +62,7 @@ void Particle::show(void)
 //sprawdza czy czasteczka jest aktywna
 bool Particle::is_dead(void)
 {
-    if(  (Xpos < -20) || (Xpos > 20) || (Ypos < -20 ) || (Ypos > 20))	//jesli czasteczka jest niewidoczna badz jest poza granicami ekranu
+    if(  (Xpos < -20) || (Xpos > 20) || (Ypos < -20 ) || (Ypos > 20))	//obszar na jakim czasteczki przestaja byc widoczne
         return true;
 	else
 		return false;

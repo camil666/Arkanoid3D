@@ -5,6 +5,7 @@ class Platform;
 class BrickSet;
 class BallSet;
 class PowerUpSet;
+class ParticleSet;
 class Shader;
 class HUD;
 class HUDInfo;
@@ -23,6 +24,7 @@ private:
 	BrickSet *brickSet;
 	BallSet *ballSet;
 	PowerUpSet *powerUpSet;
+	ParticleSet *particleSet;
 	HUD * hud;
 	HUDInfo *hudInfo;
 

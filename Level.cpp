@@ -15,6 +15,7 @@
 #include "AddPointsPowerUp.h"
 #include "HUD.h"
 #include "HUDInfo.h"
+#include "ParticleSet.h"
 
 Level::Level(void):points(0)
 {
@@ -26,6 +27,7 @@ Level::Level(void):points(0)
 	brickSet = new BrickSet();
 	ballSet = new BallSet();
 	powerUpSet = new PowerUpSet();
+	particleSet = new ParticleSet();
 	shader = new Shader();
 	//load up shader files
 	hud = new HUD();
@@ -45,6 +47,7 @@ Level::~Level(void)
 	delete brickSet;
 	delete ballSet;
 	delete powerUpSet;
+	delete particleSet;
 	delete hud;
 	delete shader; 
 	delete hudInfo;
@@ -70,6 +73,7 @@ void Level::display()
 	{
 		if (values[i] > 0)
 		{
+			particleSet->add_particle(brickSet->getBricks()[values[i]].getPosX(),brickSet->getBricks()[values[i]].getPosY(),brickSet->getBricks()[values[i]].getPosZ(),20);
 			this->addPoints();
 			srand (time(0));
 			int random = rand() % 100;
@@ -92,6 +96,8 @@ void Level::display()
 	}
 	ballSet->checkCollisions(platform);
 	
+	particleSet->display();
+	particleSet->update();
 	ballSet->display();
 	powerUpSet->display();
 	//turn shader off

@@ -15,6 +15,7 @@ ParticleSet::~ParticleSet(void)
 
 void ParticleSet::erase(int index)
 {
+	delete particles[index];
 	particles.erase(particles.begin() + index);
 }
 
