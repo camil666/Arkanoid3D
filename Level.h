@@ -14,6 +14,7 @@ class Level
 {
 private:
 	int points;
+	short lives;
 	bool buttonPressed;
 	bool justStarted;
 	float fLastIdleTime;
@@ -32,12 +33,13 @@ public:
 	Level(void);
 	~Level(void);
 
-	void display();
+	int display();
 	void pressKey (int key, int x, int y);
 	void releaseKey(int key, int x, int y);
 	void mouseButton(int button, int state, int x, int y);
 	void mouseMovement(int x, int y);
 	void addPoints();
+	void decLives();
 	HUD* getHUD();
 };
 

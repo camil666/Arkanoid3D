@@ -51,15 +51,26 @@ void App::display(void)
 	glLightfv (GL_LIGHT0, GL_POSITION, LightPosition);
     glEnable (GL_COLOR_MATERIAL);
     glShadeModel (GL_SMOOTH); //set the shader to smooth shader
+	
 
     glLoadIdentity();
 
 	if (level != NULL)
-		level->display();
+	{
+		int gameOver = level->display();
+		if (gameOver==-1)
+		{
+			delete level;
+			level = NULL;
+			menuBase = new MenuMain();
+		}
+	}
 	if(menuBase != NULL)
+	{
 		menuBase->display();
-
-    glutSwapBuffers(); //swap the buffers
+	}
+    
+	glutSwapBuffers(); //swap the buffers
 }
 
 void App::reshape(int w, int h)

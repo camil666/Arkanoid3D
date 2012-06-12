@@ -10,7 +10,7 @@
 #include "Platform.h"
 #include <cmath>
 
-Ball::Ball(void):velX(-0.1f),velY(-0.2f),velZ(-0.2f),posX(0.0f),posY(0.0f),posZ(0.0f),radius(1.0f)
+Ball::Ball(void):velX(-0.1f),velY(-0.2f),velZ(-0.2f),posX(1.0f),posY(1.0f),posZ(-2.0f),radius(1.0f)
 {
 }
 
@@ -187,10 +187,10 @@ int Ball::checkCollisions(BrickSet *brickSet)
 				}
 			}
 		}
-		return 0;
+		return -1;
 	}
 	else
-		return -1; //end of game, no bricks left
+		return -2; //end of game, no bricks left
 }
 
 //return:

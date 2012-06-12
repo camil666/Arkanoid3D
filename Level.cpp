@@ -8,6 +8,7 @@
 #include <GL/glut.h>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
 #include "Platform.h"
 #include "BrickSet.h"
 #include "Border.h"
@@ -20,7 +21,12 @@
 #include "HUDInfo.h"
 #include "ParticleSet.h"
 
-Level::Level(void):points(0)
+//for desc sorting
+bool sortDescFunction (int i,int j) { return (i>j); }
+
+Level::Level(void)
+	:points(0),
+	lives(5)
 {
 	buttonPressed = false;
 	fLastIdleTime = 0;
@@ -36,6 +42,7 @@ Level::Level(void):points(0)
 	hud = new HUD();
 	hudInfo = new HUDInfo();
 	hudInfo->setPoints(points);
+	hudInfo->setLives(lives);
 	shader->init("shader.vert", "shader.frag");
 
 	ballSet->add();
@@ -56,8 +63,9 @@ Level::~Level(void)
 	delete hudInfo;
 }
 
-void Level::display()
+int Level::display()
 {
+	return -1;
 	float fTime, fSimTime;
 	fTime=(float)(glutGet(GLUT_ELAPSED_TIME)/10);
  	fSimTime=fTime-fLastIdleTime;
@@ -74,7 +82,7 @@ void Level::display()
 	vector<int> values = ballSet->checkCollisions(brickSet);
 	for (unsigned int i = 0; i < values.size(); ++i)
 	{
-		if (values[i] > 0)
+		if (values[i] >= 0)
 		{
 			particleSet->add_particle(brickSet->getBricks()[values[i]].getPosX(),brickSet->getBricks()[values[i]].getPosY(),brickSet->getBricks()[values[i]].getPosZ(),20);
 			this->addPoints();
@@ -92,12 +100,44 @@ void Level::display()
 			}
 			brickSet->erase(values[i]);
 		}
-		else if (values[i] == -1)
+		else if (values[i] == -2)
 		{
-			//TODO: end of level, no bricks left D:
+			return -1;
 		}
 	}
-	ballSet->checkCollisions(platform);
+	vector<int> platformCollisions = ballSet->checkCollisions(platform);
+	small ballCount = platformCollisions.size();
+	vector<small> toErase; //prevents problems with ballset
+	for (unsigned int i = 0; i < ballCount; ++i)
+	{
+		small erasedCount = 0; //prevents from erasing all balls from game, if they hit the wall simultanously
+		switch (platformCollisions[i])
+		{
+			case -1:
+				if (ballCount>1 && erasedCount!=(ballCount-1))
+				{
+					erasedCount++;
+					toErase.push_back(i);
+				}
+				else
+				{
+					this->decLives();
+				}
+				break;
+			case 0:
+				break;
+			case 1:
+				break;
+		}
+	}
+	//sort ballSet indexes to erase descending so indexes will be accurate when erasing
+	std::sort (toErase.begin(), toErase.end(), sortDescFunction);
+	vector<small>::iterator it;
+	//deleting bonus balls that didn't hit the platform
+	for (it=toErase.begin(); it!=toErase.end(); ++it)
+	{
+		ballSet->erase(*it);
+	}
 
 	particleSet->display();
 	particleSet->update();
@@ -110,6 +150,7 @@ void Level::display()
 	powerUpSet->checkCollisions(platform);
 
 	fLastIdleTime=fTime;
+	return 1;
 }
 
 void Level::pressKey (int key, int x, int y)
@@ -171,6 +212,11 @@ void Level::addPoints()
 {
 	points+=100;
 	hudInfo->setPoints(points);
+}
+
+void Level::decLives()
+{
+	hudInfo->setLives(--lives);
 }
 
 HUD* Level::getHUD()

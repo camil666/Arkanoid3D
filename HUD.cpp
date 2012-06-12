@@ -31,8 +31,11 @@ void HUD::display(HUDInfo *hudInfo)
     glScalef(0.02f,0.02f,0.02f);
 	string s;
 	stringstream out;
+	stringstream out2;
 	out << hudInfo->getPoints();
 	s = "points:" + out.str();
+	out2 << hudInfo->getLives();
+	s += " lives:" + out2.str();
 	glutStrokeString(GLUT_STROKE_ROMAN,(unsigned char *)s.c_str());
 	glPopMatrix();
 

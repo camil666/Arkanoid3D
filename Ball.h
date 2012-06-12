@@ -9,6 +9,7 @@ enum BounceType {X_BOUNCE, Y_BOUNCE, Z_BOUNCE};
 class Ball
 {
 private:
+
 	float velX;
 	float velY;
 	float velZ;
