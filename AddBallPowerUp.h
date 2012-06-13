@@ -6,6 +6,7 @@ class AddBallPowerUp :public PowerUp
 {
 private:
 	BallSet *ballSet;
+	short level;
 
 public:
 	AddBallPowerUp(void);
@@ -13,5 +14,6 @@ public:
 	~AddBallPowerUp(void);
 
 	void activate();
+	void setLevel(short _level);
 };
 

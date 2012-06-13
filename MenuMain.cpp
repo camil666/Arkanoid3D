@@ -77,6 +77,15 @@ void MenuMain::DrawMenu()
 		if(choice == i)
 		{
 			glBegin(GL_QUADS);
+			glColor3f(1.0f,1.0f,1.f);
+			GLfloat DiffuseMaterial[] = {1.0f,1.0f,1.f};
+			GLfloat AmbientMaterial[] = {1.0f,1.0f,1.f};
+			GLfloat SpecularMaterial[] = {1.0f,1.0f,1.f};
+			GLfloat mShininess[] = {1000.0f};
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, DiffuseMaterial);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, AmbientMaterial);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SpecularMaterial);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
 			glVertex2f(80, 90+i*50);
 			glVertex2f(80, 100+i*50);
 			glVertex2f(90, 90+i*50);

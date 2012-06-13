@@ -10,8 +10,9 @@
 #include "Platform.h"
 #include <cmath>
 
-Ball::Ball(void):velX(-0.1f),velY(-0.2f),velZ(-0.2f),posX(1.0f),posY(1.0f),posZ(-2.0f),radius(1.0f)
+Ball::Ball(void):velX(-0.1f),velY(-0.2f),velZ(-0.2f),posX(1.0f),posY(1.0f),posZ(-2.0f),radius(1.0f),velMultiplier(1)
 {
+	
 }
 
 Ball::~Ball(void)
@@ -194,7 +195,7 @@ int Ball::checkCollisions(BrickSet *brickSet)
 }
 
 //return:
-//1 if player hit the ball
+//1 if player did hit the ball
 //-1 if player didn't hit the ball
 //0 if ball is not in platform move plane
 int Ball::checkCollisions(Platform *platform)
@@ -225,4 +226,16 @@ int Ball::checkCollisions(Platform *platform)
 float Ball::calculateDistance(float x1, float y1, float z1, float x2, float y2, float z2)
 {
 	return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2) + pow(z1 - z2, 2));
+}
+
+void Ball::setVelMultiplier(short velMul)
+{
+	velMultiplier =  velMul;
+	if (velMultiplier != 1)
+	{
+		float velFloatMultiplier = (float)velMultiplier/30;
+		velX-=velFloatMultiplier;
+		velY-=velFloatMultiplier;
+		velZ-=velFloatMultiplier;
+	}
 }

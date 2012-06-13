@@ -1,13 +1,17 @@
 #pragma once
 class Level;
 class MenuBase;
+class MenuHOF;
+class MenuName;
 //class MenuPause;
 
 class App
 {
 private:
-	static Level *level;	//area with balls and bricks
+	static Level *level; //area with balls and bricks
 	static MenuBase *menuBase; //main menu
+	static MenuHOF *hof; //hall of fame
+	static MenuName *menuName; //hall of fame name input
 	
 public:
 	App(void);

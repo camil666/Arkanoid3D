@@ -34,9 +34,10 @@ void BallSet::erase(int index)
 	balls.erase(balls.begin() + index);
 }
 
-void BallSet::add()
+void BallSet::add(short level)
 {
 	Ball ball;
+	ball.setVelMultiplier(level);
 	balls.push_back(ball);
 }
 

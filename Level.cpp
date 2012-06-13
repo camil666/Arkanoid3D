@@ -24,7 +24,7 @@
 //for desc sorting
 bool sortDescFunction (int i,int j) { return (i>j); }
 
-Level::Level(void)
+Level::Level(short _level)
 	:points(0),
 	lives(5)
 {
@@ -44,8 +44,8 @@ Level::Level(void)
 	hudInfo->setPoints(points);
 	hudInfo->setLives(lives);
 	shader->init("shader.vert", "shader.frag");
-
-	ballSet->add();
+	level = _level;
+	ballSet->add(level);
 
 }
 
@@ -65,7 +65,6 @@ Level::~Level(void)
 
 int Level::display()
 {
-	return -1;
 	float fTime, fSimTime;
 	fTime=(float)(glutGet(GLUT_ELAPSED_TIME)/10);
  	fSimTime=fTime-fLastIdleTime;
@@ -91,6 +90,7 @@ int Level::display()
 			if (random < 15)
 			{
 				AddBallPowerUp *powerUp = new AddBallPowerUp(brickSet->getBricks()[values[i]].getPosX(),brickSet->getBricks()[values[i]].getPosY(),brickSet->getBricks()[values[i]].getPosZ(),ballSet);
+				powerUp->setLevel(level);
 				powerUpSet->add(powerUp);
 			}
 			else if (random < 30)
@@ -122,6 +122,7 @@ int Level::display()
 				else
 				{
 					this->decLives();
+					if (lives==0) return -2;
 				}
 				break;
 			case 0:
@@ -148,6 +149,8 @@ int Level::display()
 	hud->display(hudInfo);
 	powerUpSet->move(fSimTime);
 	powerUpSet->checkCollisions(platform);
+	//points refreshing quickfix
+	hudInfo->setPoints(points);
 
 	fLastIdleTime=fTime;
 	return 1;
@@ -208,10 +211,15 @@ void Level::mouseMovement(int x, int y)
 	}
 }
 
-void Level::addPoints()
+void Level::addPoints(long ammount)
 {
-	points+=100;
+	points+=ammount;
 	hudInfo->setPoints(points);
+}
+
+long Level::getPoints()
+{
+	return points;
 }
 
 void Level::decLives()

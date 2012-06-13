@@ -54,7 +54,6 @@ void Shader::init(const char *vsFile, const char *fsFile) {
 	glCompileShader(shader_fp);
 
 	shader_id = glCreateProgram();
-	cout << shader_id << endl;
 	glAttachShader(shader_id, shader_fp);
 	glAttachShader(shader_id, shader_vp);
 	glLinkProgram(shader_id);

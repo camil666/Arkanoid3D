@@ -13,7 +13,8 @@ class HUDInfo;
 class Level
 {
 private:
-	int points;
+	short level;
+	long points;
 	short lives;
 	bool buttonPressed;
 	bool justStarted;
@@ -30,7 +31,7 @@ private:
 	HUDInfo *hudInfo;
 
 public:
-	Level(void);
+	Level(short _level = 1);
 	~Level(void);
 
 	int display();
@@ -38,8 +39,9 @@ public:
 	void releaseKey(int key, int x, int y);
 	void mouseButton(int button, int state, int x, int y);
 	void mouseMovement(int x, int y);
-	void addPoints();
+	void addPoints(long ammount = 100);
 	void decLives();
+	long getPoints();
 	HUD* getHUD();
 };
 

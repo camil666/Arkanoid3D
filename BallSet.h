@@ -17,7 +17,7 @@ public:
 	void move(float rate);
 	vector<Ball> getBalls();
 	void erase(int index);
-	void add();
+	void add(short level);
 	void checkCollisions(Border *border);
 	vector<int> checkCollisions(BrickSet *brickSet);
 	vector<int> checkCollisions(Platform *platform);

@@ -5,7 +5,7 @@ AddPointsPowerUp::AddPointsPowerUp(void)
 {
 }
 
-AddPointsPowerUp::AddPointsPowerUp(float pX, float pY, float pZ, int *p):PowerUp(pX,pY,pZ), points(p)
+AddPointsPowerUp::AddPointsPowerUp(float pX, float pY, float pZ, long *p):PowerUp(pX,pY,pZ), points(p)
 {
 	colR = 0.5f;
 	colG = 0.9f;

@@ -9,6 +9,7 @@ enum BounceType {X_BOUNCE, Y_BOUNCE, Z_BOUNCE};
 class Ball
 {
 private:
+	short velMultiplier;
 
 	float velX;
 	float velY;
@@ -26,6 +27,7 @@ public:
 	Ball(void);
 	~Ball(void);
 
+	void setVelMultiplier(short velMul);
 	void display();
 	void move(float rate);
 	void checkCollisions(Border *border);

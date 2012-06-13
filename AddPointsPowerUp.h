@@ -4,13 +4,12 @@
 class AddPointsPowerUp :public PowerUp
 {
 private:
-	int *points;
+	long *points;
 
 public:
 	AddPointsPowerUp(void);
-	AddPointsPowerUp(float pX, float pY, float pZ, int *p);
+	AddPointsPowerUp(float pX, float pY, float pZ, long *p);
 	~AddPointsPowerUp(void);
 
 	void activate();
 };
-
